@@ -58,13 +58,23 @@ services:
     restart: always
     
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: yes
+      MYSQL_ROOT_PASSWORD: rootpass123
       MYSQL_USER: ourShelvesUser
       MYSQL_PASSWORD: shelvesPassword123
       MYSQL_DATABASE: ourshelves
     volumes:
-      - ./backend/schema:/docker-entrypoint-initdb.d
+      - ./schema:/docker-entrypoint-initdb.d
       - mysqlData:/var/lib/mysql
+
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+    networks:
+      - app-network
 
 
 

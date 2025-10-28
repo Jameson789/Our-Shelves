@@ -1,0 +1,4 @@
+CREATE DATABASE IF NOT EXISTS ourshelves;
+CREATE USER IF NOT EXISTS 'ourShelvesUser'@'%' IDENTIFIED BY 'shelvesPassword123';
+GRANT ALL PRIVILEGES ON ourshelves.* TO 'ourShelvesUser'@'%';
+FLUSH PRIVILEGES;
