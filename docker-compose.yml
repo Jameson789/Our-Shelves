@@ -63,7 +63,7 @@ services:
       MYSQL_PASSWORD: shelvesPassword123
       MYSQL_DATABASE: ourshelves
     volumes:
-      - ./schema:/docker-entrypoint-initdb.d
+      - ./backend/schema:/docker-entrypoint-initdb.d
       - mysqlData:/var/lib/mysql
 
     healthcheck:
