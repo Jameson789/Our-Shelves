@@ -1,0 +1,77 @@
+# docker-compose.yml
+
+services:
+  # Backend service (Node.js API)
+  backend:
+    # Build the backend container using the Dockerfile inside the backend folder
+    build: ./backend
+
+    # Map the container port 3000 to the host port 3000
+    ports:
+      - "3000:3000"
+
+    # Create a container named 'backend' for easier reference
+    container_name: backend
+
+    depends_on:
+      - db
+
+    environment: 
+      DB_HOST: db
+      DB_USER: ourShelvesUser
+      DB_PASSWORD: shelvesPassword123
+      DB_NAME: ourshelves
+
+    # Connect the backend to the shared app network
+    networks:
+      - app-network
+
+
+  # Frontend service (React app)
+  frontend:
+    # Build the frontend container using the Dockerfile inside the frontend folder
+    build: ./frontend
+
+    # Map the container port 3001 to the host port 3001
+    ports:
+      - "5173:5173"
+
+    # Wait for the backend service to start before running the frontend
+    depends_on:
+      - backend
+
+    # Set environment variable(s) for the frontend
+    environment:
+      - VITE_API_URL=http://localhost:3000
+
+
+    # Create a container named 'frontend' for easier reference
+    container_name: frontend
+
+    # Connect the frontend to the same app network
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8.0 
+    container_name: mysql_container 
+    restart: always
+    
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+      MYSQL_USER: ourShelvesUser
+      MYSQL_PASSWORD: shelvesPassword123
+      MYSQL_DATABASE: ourshelves
+    volumes:
+      - ./backend/schema:/docker-entrypoint-initdb.d
+      - mysqlData:/var/lib/mysql
+
+
+
+# Define a shared network so both containers can communicate (Docker does this automatically by default)
+networks:
+  app-network:
+    driver: bridge
+
+volumes: 
+  mysqlData:

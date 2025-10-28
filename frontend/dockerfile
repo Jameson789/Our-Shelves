@@ -1,0 +1,20 @@
+# Use the official Node.js image (using the lightweight Alpine image to keep the docker image small)
+FROM node:20-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy over the package files into the container
+COPY package*.json ./
+
+# Install all the dependencies inside the container
+RUN npm install
+
+# Copy the rest of the frontend code into the container
+COPY . .
+
+# Expose the port the frontend dev server will run on (3001)
+EXPOSE 5173
+
+# Define the default command to start the React development server
+CMD ["npm", "run", "dev"]
