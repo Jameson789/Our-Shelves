@@ -5,6 +5,8 @@ A reading tracker web application that allows users to search for books using th
 ## Team Members
 - Alston
 - Danny
+- Jameson
+- Johnathan
 
 ---
 
@@ -38,7 +40,89 @@ A reading tracker web application that allows users to search for books using th
 
 ---
 
-## Prerequisites
+## Docker + VM Setup
+
+### 1. Install Docker on Ubuntu VM  
+Follow the official DigitalOcean guide to install Docker:  
+🔗 [How to Install and Use Docker on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
+
+---
+
+### 2. Clone the Repository  
+git clone https://github.com/your-username/our-shelves.git  
+```
+cd our-shelves
+```
+---
+
+### 3: Set Backend URL 
+Run: 
+``` 
+nano docker-compose.yml 
+``` 
+Scroll down until you see the line 
+```
+- VITE_API_URL:http://localhost:3000
+``` 
+Change that line to: 
+```
+- VITE_API_URL:http://<your vm ip>:3000
+```
+Then press Control + x, then y, and then enter. This is how you save the file with nano.
+
+These steps tells your frontend where to find your backend, and this is different depending on whether the project is running in docker locally or in a VM.
+
+### 4. Build and Start Containers  
+Use Docker Compose to build and run the containers in detached mode:  
+```
+docker compose up -d --build
+```
+
+---
+
+### 5. Manage Containers  
+Use the following commands to manage your containers easily:  
+```
+# Stop all running containers (without removing them)  
+docker compose stop  
+
+# Restart previously stopped containers  
+docker compose start  
+
+# Stop and remove all containers, networks, and volumes  
+docker compose down
+```
+---
+
+### 6. View Logs and Debug Errors  
+If the containers fail to start or an error occurs, use these commands to inspect logs:  
+
+#### View logs for all containers  
+```
+docker compose logs  
+```
+#### View logs for a specific service (e.g., backend, frontend, or db)  
+```
+docker compose logs backend  
+docker compose logs frontend  
+docker compose logs db
+```
+#### Follow logs in real time (like "tail -f")  
+```
+docker compose logs -f
+```
+These logs often show missing environment variables, database connection errors, or other startup issues.
+
+---
+
+### 7. Additional Docker Resources  
+For more useful Docker commands and shortcuts, check out the official cheat sheet:  
+📄 [Docker CLI Cheat Sheet (PDF)](https://docs.docker.com/get-started/docker_cheatsheet.pdf)
+
+
+
+# Local Setup
+##  Prerequisites
 
 Make sure the following are installed:
 
@@ -129,7 +213,7 @@ http://localhost:5173
 
 ---
 
-## Deployment Instructions (Ubuntu + PM2)
+# VM Instructions(Ubuntu + PM2 NO DOCKER)
 
 ### 1. Install PM2 Globally (if not installed)
 ```bash
