@@ -20,6 +20,8 @@ jobs:
           npm test
       - name: Backend Integration Tests
         run: |
+          cd backend
+          npm i
           npm run test:integration
           
             
