@@ -13,15 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Backend Unit Tests
+      - name: Backend Tests
         run: |
           cd backend
           npm i
+          echo "Running backend unit tests"
           npm test
-      - name: Backend Integration Tests
-        run: |
-          cd backend
-          npm i
+          echo "Running backend integration tests"
           npm run test:integration
           
             
