@@ -13,14 +13,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Backend Tests
+      - name: Backend Unit Tests
         run: |
           cd backend
           npm i
-          echo "Running backend unit tests"
           npm test
-          echo "Running backend integration tests"
+      - name: Backend Integration Tests
+        run: |
+          cd backend
+          npm i
           npm run test:integration
-          
-            
-            
+    
+  frontend-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Frontend Unit Tests
+        run: |
+          cd frontend
+          npm i
+          npm test
