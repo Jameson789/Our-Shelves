@@ -1,0 +1,26 @@
+name: CI/CD Pipeline
+
+on: 
+  push:
+      branches: [workflow]
+  pull_request:
+      branches: [main]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Backend Unit Tests
+        run: |
+          cd backend
+          npm i
+          npm test
+      - name: Backend Integration Tests
+        run: |
+          npm run test:integration
+          
+            
+            
