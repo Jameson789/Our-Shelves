@@ -2,43 +2,43 @@ name: CI/CD Pipeline
 
 on: 
   push:
-      branches: [workflow]
+      branches: [main, dev, workflow]
   pull_request:
-      branches: [main]
+      branches: [main, dev]
 
 jobs:
-  # backend-tests:
-  #   runs-on: ubuntu-latest
+  backend-tests:
+    runs-on: ubuntu-latest
     
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Backend Unit Tests
-  #       run: |
-  #         cd backend
-  #         npm i
-  #         npm test
-  #     - name: Backend Integration Tests
-  #       run: |
-  #         cd backend
-  #         npm i
-  #         npm run test:integration
+      - name: Backend Unit Tests
+        run: |
+          cd backend
+          npm i
+          npm test
+      - name: Backend Integration Tests
+        run: |
+          cd backend
+          npm i
+          npm run test:integration
     
-  # frontend-tests:
-  #   runs-on: ubuntu-latest
+  frontend-tests:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Frontend Unit Tests
-  #       run: |
-  #         cd frontend
-  #         npm i
-  #         npm test
+      - name: Frontend Unit Tests
+        run: |
+          cd frontend
+          npm i
+          npm test
           
   end-to-end-tests:
     runs-on:  ubuntu-latest
-    # needs: [backend-tests, frontend-tests]
+    needs: [backend-tests, frontend-tests]
 
     steps: 
       - uses: actions/checkout@v3
