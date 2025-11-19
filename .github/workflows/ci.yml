@@ -35,3 +35,22 @@ jobs:
           cd frontend
           npm i
           npm test
+          
+  end-to-end-tests:
+    runs-on:  ubuntu-latest
+    needs: [backend-tests, frontend-tests]
+
+    steps: 
+      - uses: actions/checkout@v3
+
+      - name: Setting up e2e tests 
+        run: |
+          cd frontend 
+          npm i 
+          npm run dev
+
+      - name: Running e2e tests 
+        run: | 
+          cd frontend
+          npx cypress run
+
