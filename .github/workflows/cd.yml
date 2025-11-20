@@ -22,15 +22,7 @@ jobs:
           username: ${{ secrets.VM_USERNAME }}
           password: ${{ secrets.VM_PASSWORD }}
           script: |
-            mkdir -p /test/Our-Shelves && cd /test/Our-Shelves
-            
-            if [ -d ".git" ]; then
-              echo "Pulling latest changes..."
-              git pull origin main
-            else
-              echo "Cloning repository..."
-              git clone https://github.com/${{ github.repository }}.git .
-            fi
+            ping ${{ secrets.VM_HOST }}
             
             
             
