@@ -2,13 +2,14 @@ name: CD Pipeline
 
 on: 
   workflow_run:
-    workflows: ["CI Pipeline"]
-    types: [completed]
+    workflows: [CI Pipeline]
+    types: 
+      - completed
+    branches: [main, workflow]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/workflow' && github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v3
