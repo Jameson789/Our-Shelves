@@ -59,7 +59,7 @@ describe("fetchBooks", () => {
                 author: 'Herman Melville',
                 year: 1851,
                 cover: 'https://covers.openlibrary.org/b/id/98765-M.jpg',
-                pages: 600
+                pages: 634
             }]
         });
         expect(res.status).not.toHaveBeenCalled();
