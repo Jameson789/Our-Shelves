@@ -21,8 +21,12 @@ jobs:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USERNAME }}
           password: ${{ secrets.VM_PASSWORD }}
+          port: 22
           script: |
-            ping ${{ secrets.VM_HOST }}
+            echo "Connected to ${hostname}"
+            echo "Current user: ${whoami}"
+            echo "Uptime:" 
+            uptime
             
             
             
