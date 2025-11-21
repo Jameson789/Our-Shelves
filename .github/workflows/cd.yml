@@ -23,10 +23,9 @@ jobs:
           password: ${{ secrets.VM_PASSWORD }}
           port: 22
           script: |
-            echo "Connected to ${hostname}"
-            echo "Current user: ${whoami}"
-            echo "Uptime:" 
-            uptime
+            echo "Connected. Creating test directory..."
+            mkdir -p ~/cd-test-$(date +%s)
+            ls -la ~
             
             
             
