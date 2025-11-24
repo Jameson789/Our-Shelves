@@ -25,7 +25,17 @@ jobs:
           script: |
             echo "Connected. Creating test directory..."
             cd /root/projects/Our-Shelves || (mkdir -p /root/projects/Our-Shelves && cd /root/projects/Our-Shelves)
-            ls -la ~
+            
+            # Clone or pull latest code
+            if [ -d ".git" ]; then
+              echo "Pulling latest changes..."
+              git pull origin main
+            else
+              echo "Cloning repository..."
+              git clone https://github.com/${{ github.repository }}.git .
+            fi
+
+            
             
             
             
