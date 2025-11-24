@@ -24,7 +24,7 @@ jobs:
           port: 22
           script: |
             echo "Connected. Creating test directory..."
-            cd /home/projects/Our-Shelves || mkdir -p /home/projects/Our-Shelves && cd /home/projects/Our-Shelves
+            cd /root/projects/Our-Shelves || (mkdir -p /root/projects/Our-Shelves && cd /root/projects/Our-Shelves)
             ls -la ~
             
             
