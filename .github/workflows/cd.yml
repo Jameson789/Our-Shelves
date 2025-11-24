@@ -36,10 +36,10 @@ jobs:
             fi
 
             echo "Setting up production environment..."
-            printf "%s" "${{ secrets.ENV }}" > .env
+            printf "%s" "${{ secrets.env }}" > .env
 
             # Check to see if env has been correctly added
-            if [ -z "${{ secrets.ENV }}" ]; then
+            if [ -z "${{ secrets.env }}" ]; then
             echo "ENV secret is EMPTY"
             else
               echo "ENV secret is SET (hidden for security)"
