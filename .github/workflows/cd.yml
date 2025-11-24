@@ -46,7 +46,7 @@ jobs:
             fi
 
             echo "Stopping existing containers..."
-            docker compose down
+            docker compose down -v
 
             echo "Building and starting containers"
             docker compose up -d --build
