@@ -38,6 +38,13 @@ jobs:
             echo "Setting up production environment..."
             printf "%s" "${{ secrets.ENV }}" > .env
 
+            # Check to see if env has been correctly added
+            if [ -z "${{ secrets.ENV }}" ]; then
+            echo "ENV secret is EMPTY"
+            else
+              echo "ENV secret is SET (hidden for security)"
+            fi
+
             echo "Stopping existing containers..."
             docker compose down
 
