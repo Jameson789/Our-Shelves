@@ -21,9 +21,12 @@ jobs:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USERNAME }}
           password: ${{ secrets.VM_PASSWORD }}
+          port: 22
           script: |
-            cd /test/Our-Shelves || mkdir -p /test/Our-Shelves && cd /test/Our-Shelves
+            echo "Connected. Creating test directory..."
+            cd /root/projects/Our-Shelves || (mkdir -p /root/projects/Our-Shelves && cd /root/projects/Our-Shelves)
             
+            # Clone or pull latest code
             if [ -d ".git" ]; then
               echo "Pulling latest changes..."
               git pull origin main
@@ -31,10 +34,28 @@ jobs:
               echo "Cloning repository..."
               git clone https://github.com/${{ github.repository }}.git .
             fi
-            
-            # Set up production environment
+
             echo "Setting up production environment..."
-            echo "${{ secrets.VM_ENV }}" | base64 --decode > .env
+            printf "%s" "${{ secrets.VM_ENV }}" > .env
+
+            # Check to see if env has been correctly added
+            if [ -z "${{ secrets.VM_ENV }}" ]; then
+            echo "ENV secret is EMPTY"
+            else
+              echo "ENV secret is SET (hidden for security)"
+            fi
+
+            echo "Stopping existing containers..."
+            docker compose down
+
+            echo "Building and starting containers"
+            docker compose up -d --build
+
+            echo "Verifying deployment..."
+            docker compose ps
+
+            echo "Cleaning up old Docker images..."
+            docker image prune -f
             
             
     
