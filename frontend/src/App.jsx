@@ -1,4 +1,4 @@
-// import Header from "./components/Header.jsx";
+import Header from "./components/Header.jsx";
 import Home from "./pages/Home.jsx";
 import BookDetail from "./pages/BookDetail.jsx";
 import { Routes, Route } from "react-router-dom";
@@ -13,6 +13,7 @@ function App() {
   return (
     <>
 
+      <Header />
       <Routes>
         <Route path="/" element={<Home setSelectedBook={setSelectedBook} />} />
         <Route path="/BookDetail" element={<BookDetail book={selectedBook} />} />
