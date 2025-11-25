@@ -204,6 +204,31 @@ Output:
 - Videos are saved to: frontend/cypress/videos
 - Screenshots (on failure) are saved to: frontend/cypress/screenshots
 
+## GitHub Actions Workflows
+
+This project includes two automated workflows to ensure code quality and smooth deployments.
+
+### CI Pipeline (`ci.yml`)
+The **Continuous Integration (CI)** workflow runs automatically on pushes and pull requests to `main` and `dev`.
+
+It includes:
+- Running all tests
+- Merging into current branch 
+
+This pipeline ensures all layers of the app work correctly before any deployment can occur.
+
+### CD Pipeline (`cd.yml`)
+The **Continuous Deployment (CD)** workflow triggers automatically after the **CI Pipeline** completes successfully.
+
+It:
+- Connects to the DigitalOcean VM via **SSH**
+- Pulls the latest code from GitHub
+- Rebuilds Docker containers
+- Restarts the stack using `docker compose up -d`
+- Cleans unused images
+
+This workflow keeps the production server up to date with every successful merge.
+
 ## Running the Application (Local)
 
 The backend, frontend, and MySQL server can all be built and ran with one command:
